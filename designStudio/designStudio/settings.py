@@ -128,3 +128,5 @@ runserver.default_port = "8080"
 
 AUTH_USER_MODEL = 'Studio.User'
 
+LOGIN_REDIRECT_URL = '/'
+
