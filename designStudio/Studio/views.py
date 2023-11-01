@@ -16,6 +16,6 @@ def index(request):
                                                  'Application_category': Application_category})
 
 class RegisterView(CreateView):
-    template_name = 'registration/registration.html'
+    template_name = 'registration/register.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('login')
