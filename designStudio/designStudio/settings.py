@@ -130,3 +130,5 @@ AUTH_USER_MODEL = 'Studio.User'
 
 LOGIN_REDIRECT_URL = '/'
 
+MEDIA_URL = '/media/'
+
