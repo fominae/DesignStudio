@@ -11,6 +11,7 @@ def validate_password_len(password):
 
 
 class RegisterUserForm(forms.ModelForm):
+
     username = forms.CharField(label='Логин',
                                validators=[RegexValidator('[a-zA-Z0-9-]+$',
                                                           message="Разрешены только латиница, цифры или тире")],
@@ -58,6 +59,6 @@ class RegisterUserForm(forms.ModelForm):
 
     class Meta:
         model = AdvUser
-        fields = ('username',
+        fields = ('name', 'username',
                   'email',
                   'password', 'password2', 'rules')

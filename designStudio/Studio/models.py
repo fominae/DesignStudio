@@ -4,10 +4,7 @@ from django.db import models
 
 # Create your models here.
 class AdvUser(AbstractUser):
-    name = models.CharField(max_length=254, verbose_name='Имя', blank=False)
-    surname = models.CharField(max_length=254, verbose_name='Фамилия', blank=False)
-    patronymic = models.CharField(max_length=254, verbose_name='Отчество', blank=True)
-
+    name = models.CharField(max_length=254, verbose_name='ФИО', blank=False)
 
 class Category(models.Model):
     name = models.CharField(max_length=200, help_text="Введите категорию")
