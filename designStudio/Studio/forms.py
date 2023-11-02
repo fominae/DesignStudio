@@ -1,4 +1,6 @@
-from django.contrib.auth.models import User
+import re
+
+from .models import AdvUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django import forms
@@ -10,14 +12,27 @@ def validate_password_len(password):
         raise ValidationError('Длина пароля не может быть меньше 6 символов')
 
 
-class RegisterUserForm(forms.ModelForm):
+def clean_name(name):
+    if not re.match(r'^[а-яА-ЯёЁ\s-]+$', name):
+        raise ValidationError('Используйте кириллицу, дефис и пробелы')
 
+
+def clean_username(username):
+    if not re.match(r'^[a-zA-Z\s-]+$', username):
+        raise ValidationError('Используйте латиницу и дефис')
+
+
+class RegisterUserForm(forms.ModelForm):
     username = forms.CharField(label='Логин',
-                               validators=[RegexValidator('[a-zA-Z0-9-]+$',
-                                                          message="Разрешены только латиница, цифры или тире")],
+                               validators=[clean_username],
                                error_messages={
                                    'required': 'Обязательное поле',
                                    'unique': 'Данный логин занят'
+                               })
+    name = forms.CharField(label='ФИО',
+                               validators=[clean_name],
+                               error_messages={
+                                   'required': 'Обязательное поле',
                                })
     email = forms.EmailField(label='Адрес электронной почты',
                              error_messages={
