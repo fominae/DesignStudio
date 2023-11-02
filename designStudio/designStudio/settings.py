@@ -130,5 +130,5 @@ AUTH_USER_MODEL = 'Studio.AdvUser'
 
 LOGIN_REDIRECT_URL = '/'
 
-MEDIA_URL = '/media/'
+
 
