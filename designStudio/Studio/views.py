@@ -23,6 +23,10 @@ class ViewRequests(ListView):
     def get_queryset(self):
         return Application.objects.filter(status__exact='Выполнено').order_by('-date_create')[:4]
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['number_of_applications'] = Application.objects.filter(status__exact='Принято в работу').count()
+        return context
 
 class MyLoginView(LoginView):
     template_name = 'registration/login.html'
@@ -30,3 +34,5 @@ class MyLoginView(LoginView):
 
 class MyLogoutView(LogoutView):
     template_name = 'registration/logged_out.html'
+
+
