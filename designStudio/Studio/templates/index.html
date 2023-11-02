@@ -3,4 +3,13 @@
 {% block content %}
 <h1>Дизайн-студия «Design.pro»</h1>
 
+  {% for i in applications %}
+        <p> <b>Название: </b>{{ i.application_title }} </p>
+        <p> <b>Категория: </b>{{i.category}} </p>
+        <p> <b>Описание: </b> {{ i.description }} </p>
+        <p> <b>Фотография: </b> <img src="{{i.photo_of_room.url}}"/> </p>
+        <p> <b>Время создания: </b>  {{i.date_create}} -- {{i.time_create}}</p>
+        <br><br><br>
+    {% endfor %}
+
 {% endblock %}
