@@ -125,6 +125,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 runserver.default_port = "8080"
+runserver.default_addr = "localhost"
 
 AUTH_USER_MODEL = 'Studio.AdvUser'
 
