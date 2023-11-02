@@ -14,11 +14,11 @@ class Application(models.Model):
     description = models.TextField(verbose_name="Описание")
     REQUEST_CATEGORY = (
         ('bigApartment', 'bigApartment'),
-        ('Apartment', 'bigApartment'),
+        ('Medium-sizedApartment', 'Medium-sizedApartment'),
         ('smallApartment', 'smallApartment'),
     )
     category = models.CharField(
-        max_length=14,
+        max_length=21,
         choices=REQUEST_CATEGORY,
         blank=True,
         default='a',
@@ -39,7 +39,7 @@ class Application(models.Model):
     REQUEST_STATUS = (
         ('Новая', 'Новая'),
         ('Принято в работу', 'Принято в работу'),
-        ('«Выполнено»', '«Выполнено»'),
+        ('Выполнено', 'Выполнено'),
     )
     status = models.CharField(
         max_length=16,

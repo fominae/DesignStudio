@@ -19,3 +19,6 @@ class ViewRequests(ListView):
    model = Application
    template_name = 'index.html'
    context_object_name = 'applications'
+
+   def get_queryset(self):
+       return Application.objects.filter(status__exact='Выполнено').order_by('-date_create')[:4]
