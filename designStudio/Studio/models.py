@@ -8,13 +8,6 @@ class AdvUser(AbstractUser):
     surname = models.CharField(max_length=254, verbose_name='Фамилия', blank=False)
     patronymic = models.CharField(max_length=254, verbose_name='Отчество', blank=True)
 
-    def full_name(self):
-        # return self.name + ' ' + self.surname + ' ' + self.patronymic
-        return ' '.join([self.name, self.surname, self.patronymic])
-
-    def __str__(self):
-        return self.full_name()
-
 
 class Category(models.Model):
     name = models.CharField(max_length=200, help_text="Введите категорию")
