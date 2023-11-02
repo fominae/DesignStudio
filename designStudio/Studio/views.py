@@ -12,8 +12,9 @@ def index(request):
     Application_description = Application.description
     Application_category = Application.category
     return render(request, 'index.html', context={'Application_title': Application_title,
-                                                 'Application_description': Application_description,
-                                                 'Application_category': Application_category})
+                                                  'Application_description': Application_description,
+                                                  'Application_category': Application_category})
+
 
 class RegisterView(CreateView):
     template_name = 'registration/register.html'

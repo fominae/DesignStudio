@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django import forms
+from .models import *
 
 
 def validate_password_len(password):
@@ -56,7 +57,7 @@ class RegisterUserForm(forms.ModelForm):
         return user
 
     class Meta:
-        model = User
+        model = AdvUser
         fields = ('username',
                   'email',
                   'password', 'password2', 'rules')
