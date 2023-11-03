@@ -1,15 +1,6 @@
 import re
-
-from .models import AdvUser
-from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
 from django import forms
 from .models import *
-
-
-def validate_password_len(password):
-    if len(password) < 6:
-        raise ValidationError('Длина пароля не может быть меньше 6 символов')
 
 
 def clean_name(name):
@@ -41,7 +32,6 @@ class RegisterUserForm(forms.ModelForm):
 
     password = forms.CharField(label='Пароль',
                                widget=forms.PasswordInput,
-                               validators=[validate_password_len],
                                error_messages={
                                    'required': 'Обязательное поле',
                                })
