@@ -40,7 +40,7 @@ class MyLogoutView(LogoutView):
 
 class User_requests(LoginRequiredMixin, generic.ListView):
     model = Application
-    template_name = 'catalog/application_list_by_user.html'
+    template_name = 'Studio/application_list_by_user.html'
     context_object_name = 'applications'
 
     def get_queryset(self):
