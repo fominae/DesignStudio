@@ -2,7 +2,6 @@ import re
 from django import forms
 from .models import *
 
-
 def clean_name(name):
     if not re.match(r'^[а-яА-ЯёЁ\s-]+$', name):
         raise ValidationError('Используйте кириллицу, дефис и пробелы')
