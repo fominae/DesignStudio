@@ -23,7 +23,7 @@ class ViewRequests(ListView):
     context_object_name = 'applications'
 
     def get_queryset(self):
-        return Application.objects.filter(status__exact='Выполнено').order_by('-date_create')[:4]
+        return Application.objects.filter(status__exact='Выполнено').order_by('-date_create','time_create')[:4]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -32,7 +32,6 @@ class ViewRequests(ListView):
 
 class MyLoginView(LoginView):
     template_name = 'registration/login.html'
-
 
 class MyLogoutView(LogoutView):
     template_name = 'registration/logged_out.html'
@@ -45,7 +44,8 @@ class User_requests(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return (
-            Application.objects.filter(owner=self.request.user)
+            Application.objects.filter(owner=self.request.user).order_by('-date_create', '-time_create')
+
         )
 
 
@@ -62,3 +62,5 @@ class ApplicationCreate(LoginRequiredMixin, CreateView):
 class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
     success_url = reverse_lazy('my_application')
+
+
