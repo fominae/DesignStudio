@@ -1,6 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views import generic
 from django.views.generic import CreateView, ListView
 from .forms import RegisterUserForm
 from .models import Application
@@ -34,5 +36,16 @@ class MyLoginView(LoginView):
 
 class MyLogoutView(LogoutView):
     template_name = 'registration/logged_out.html'
+    success_url = reverse_lazy('login')
+
+class User_requests(LoginRequiredMixin, generic.ListView):
+    model = Application
+    template_name = 'catalog/application_list_by_user.html'
+    context_object_name = 'applications'
+
+    def get_queryset(self):
+        return (
+            Application.objects.filter(owner=self.request.user)
+        )
 
 
