@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView,DeleteView
 from .forms import RegisterUserForm
 from .models import Application
 
@@ -49,3 +49,16 @@ class User_requests(LoginRequiredMixin, generic.ListView):
         )
 
 
+class ApplicationCreate(LoginRequiredMixin, CreateView):
+    model = Application
+    fields = ['application_title', 'description', 'category', 'photo_of_room']
+    success_url = reverse_lazy('my_application')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+
+        return super().form_valid(form)
+
+class ApplicationDelete(LoginRequiredMixin, DeleteView):
+    model = Application
+    success_url = reverse_lazy('my_application')
