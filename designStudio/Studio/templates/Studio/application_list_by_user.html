@@ -3,6 +3,15 @@
 {% block content %}
     <h1>Мои заявки</h1>
     <a href="{% url 'my_application_create' %}">Создать заявку</a>
+    <form method="get">
+        <select name="status">
+              <option value="">Все</option>
+              <option value="Новая">Новая</option>
+              <option value="Принято в работу">Принято в работу</option>
+              <option value="Выполнено">Выполнено</option>
+        </select>
+    <input type="submit" value="Фильтровать">
+    </form>
     {% if applications %}
       {% for i in applications %}
         <p> <b>Название: </b>{{ i.application_title }} </p>

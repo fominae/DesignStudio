@@ -47,7 +47,8 @@ class Application(models.Model):
         default='Новая',
         blank=True,
         verbose_name="Статус")
-    owner= models.ForeignKey(AdvUser, on_delete=models.CASCADE, null=True, blank=True)
+
+    owner = models.ForeignKey(AdvUser, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.application_title

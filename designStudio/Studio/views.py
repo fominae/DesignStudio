@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import CreateView, ListView,DeleteView
+from django.views.generic import CreateView, ListView, DeleteView
 from .forms import RegisterUserForm
 from .models import Application
 
@@ -23,19 +23,22 @@ class ViewRequests(ListView):
     context_object_name = 'applications'
 
     def get_queryset(self):
-        return Application.objects.filter(status__exact='Выполнено').order_by('-date_create','time_create')[:4]
+        return Application.objects.filter(status__exact='Выполнено').order_by('-date_create', 'time_create')[:4]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['number_of_applications'] = Application.objects.filter(status__exact='Принято в работу').count()
         return context
 
+
 class MyLoginView(LoginView):
     template_name = 'registration/login.html'
+
 
 class MyLogoutView(LogoutView):
     template_name = 'registration/logged_out.html'
     success_url = reverse_lazy('login')
+
 
 class User_requests(LoginRequiredMixin, generic.ListView):
     model = Application
@@ -43,10 +46,11 @@ class User_requests(LoginRequiredMixin, generic.ListView):
     context_object_name = 'applications'
 
     def get_queryset(self):
-        return (
-            Application.objects.filter(owner=self.request.user).order_by('-date_create', '-time_create')
-
-        )
+        status = self.request.GET.get('status')
+        filter_application = Application.objects.filter(owner=self.request.user)
+        if status:
+            filter_application = filter_application.filter(status=status)
+        return filter_application
 
 
 class ApplicationCreate(LoginRequiredMixin, CreateView):
@@ -59,8 +63,7 @@ class ApplicationCreate(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
+
 class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
     success_url = reverse_lazy('my_application')
-
-
