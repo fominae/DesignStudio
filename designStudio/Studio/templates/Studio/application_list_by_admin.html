@@ -1,0 +1,29 @@
+{% extends "basic.html" %}
+
+{% block content %}
+    <h1>Все заявки</h1>
+    <form method="get">
+        <select name="status">
+              <option value="">Все</option>
+              <option value="Новая">Новая</option>
+              <option value="Принято в работу">Принято в работу</option>
+              <option value="Выполнено">Выполнено</option>
+        </select>
+    <input type="submit" value="Фильтровать">
+    </form>
+    {% if categoryA %}
+      {% for i in categoryA %}
+        <p> <b>Название: </b>{{ i.application_title }} </p>
+        <p> <b>Категория: </b>{{i.category}} </p>
+        <p> <b>Фотография: </b> <img src="{{i.photo_of_room.url}}" width="250" height="160px"/> </p>
+        <p> <b>Время создания: </b>  {{i.date_create}} -- {{i.time_create}}</p>
+        <p> <b>Статус: </b>  {{i.status}} </p>
+
+
+        <br><br><br>
+    {% endfor %}
+
+    {% else %}
+      <p>Нет заявок</p>
+    {% endif %}
+{% endblock %}

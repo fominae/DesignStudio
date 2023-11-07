@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import CreateView, ListView, DeleteView
 from .forms import RegisterUserForm
-from .models import Application
+from .models import Application, Category
 
 
 # Create your views here.
@@ -67,3 +67,13 @@ class ApplicationCreate(LoginRequiredMixin, CreateView):
 class ApplicationDelete(LoginRequiredMixin, DeleteView):
     model = Application
     success_url = reverse_lazy('my_application')
+
+
+class CategoryAdmin(generic.ListView):
+    model = Application
+    template_name = 'Studio/application_list_by_admin.html'
+    context_object_name = 'categoryA'
+
+
+
+
