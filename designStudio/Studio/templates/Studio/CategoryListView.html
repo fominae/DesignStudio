@@ -1,0 +1,16 @@
+{% extends "basic.html" %}
+{% block content %}
+<a href="{% url 'Category_create'%}">Добавление категории</a>
+
+{% if categoryAd %}
+{% for i in categoryAd%}
+    <div class = 'category'>
+        <p> <b>Название: </b>{{ i.category }} </p>
+        <a href="{% url 'Category_delete' i.id%}">Удаление категории</a>
+    </div>
+    {% endfor %}
+
+    {% else %}
+      <p>Нет категорий</p>
+    {% endif %}
+{% endblock %}

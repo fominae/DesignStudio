@@ -14,6 +14,9 @@ urlpatterns = [
     path('my_application/create/', views.ApplicationCreate.as_view(), name='my_application_create'),
     path('my_application/<int:pk>/delete/', views.ApplicationDelete.as_view(), name='my_application_delete'),
     path('categoryAdmin/', views.CategoryAdmin.as_view(), name='categoryAdmin'),
+    path('categoryList/', views.CategoryView.as_view(), name='categoryList'),
+    path('category/<int:pk>/delete/', views.CategoryDelete.as_view(), name='Category_delete'),
+    path('categoryCreate/', views.CategoryCreate.as_view(), name='Category_create'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

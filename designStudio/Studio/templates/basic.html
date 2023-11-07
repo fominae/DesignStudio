@@ -43,6 +43,7 @@
                 <li>Администратор</li>
                 {% if perms.catalog.can_mark_returned %}
                 <li><a href="{% url 'categoryAdmin' %}">Все заявки</a></li>
+                <li><a href="{% url 'categoryList' %}">Категории</a></li>
                 {% endif %}
             </ul>
             {% endif %}

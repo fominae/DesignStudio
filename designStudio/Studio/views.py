@@ -75,5 +75,21 @@ class CategoryAdmin(generic.ListView):
     context_object_name = 'categoryA'
 
 
+class CategoryView(ListView):
+    model = Category
+    template_name = 'Studio/CategoryListView.html'
+    context_object_name = 'categoryAd'
 
+
+class CategoryDelete(DeleteView):
+    model = Category
+    template_name = 'Studio/category_confirm_delete.html'
+    success_url = reverse_lazy('categoryList')
+
+
+class CategoryCreate(CreateView):
+    model = Category
+    fields = ['category']
+    template_name = 'Studio/Category_form.html'
+    success_url = reverse_lazy('categoryList')
 
