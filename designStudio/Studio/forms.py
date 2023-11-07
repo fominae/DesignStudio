@@ -66,3 +66,23 @@ class RegisterUserForm(forms.ModelForm):
         fields = ('name', 'username',
                   'email',
                   'password', 'password2', 'rules')
+
+
+class ApplicationStatusForm(forms.ModelForm):
+    comment = forms.CharField(required=False)
+    design = forms.ImageField(required=False)
+
+    class Meta:
+        model = Application
+        fields = ['status', 'comment', 'design']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        status = cleaned_data.get('status')
+        comment = cleaned_data.get('comment')
+        design = cleaned_data.get('design')
+
+        if status == 'Принято в работу' and not comment:
+            self.add_error('comment', 'Комментарий обязателен при смене статуса на "Принято в работу".')
+        elif status == 'Выполнено' and not design:
+            self.add_error('design', 'Изображение созданного дизайна обязательно при смене статуса на "Выполнено".')
