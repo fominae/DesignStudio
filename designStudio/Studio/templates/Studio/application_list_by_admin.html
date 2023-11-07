@@ -18,6 +18,8 @@
         <p> <b>Фотография: </b> <img src="{{i.photo_of_room.url}}" width="250" height="160px"/> </p>
         <p> <b>Время создания: </b>  {{i.date_create}} -- {{i.time_create}}</p>
         <p> <b>Статус: </b>  {{i.status}} </p>
+        <a class="btn btn-primary mb-1" href="{% url 'application-change-status' i.id %}">Изменить статус</a>
+
 
 
         <br><br><br>

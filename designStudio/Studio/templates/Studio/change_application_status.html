@@ -1,0 +1,18 @@
+{% block content %}
+  <h1>Изменить статус заявки {{ object }}</h1>
+
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      {% if applications.status == 'Принято в работу' or applications.status == 'Выполнено'%}
+            <p>Невозможна смена статуса заявки "Принято в работу" или "Выполнено"</p>
+      {% else %}
+            <button type="submit">Изменить статус</button>
+      {% endif %}
+  </form>
+
+
+
+
+{% endblock %}
