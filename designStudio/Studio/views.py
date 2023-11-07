@@ -3,8 +3,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import CreateView, ListView, DeleteView
-from .forms import RegisterUserForm
+from django.views.generic import CreateView, ListView, DeleteView, UpdateView
+from .forms import *
 from .models import Application, Category
 
 
@@ -93,3 +93,27 @@ class CategoryCreate(CreateView):
     template_name = 'Studio/Category_form.html'
     success_url = reverse_lazy('categoryList')
 
+
+class ChangeApplicationStatus(LoginRequiredMixin, UpdateView):
+    model = Application
+    form_class = ApplicationStatusForm
+    template_name = 'Studio/change_application_status.html'
+    success_url = reverse_lazy('categoryAdmin')
+    context_object_name = 'applications'
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        print(self.request.FILES)
+        form = ApplicationStatusForm(self.request.POST, self.request.FILES, instance=self.object)
+        form.save()
+        return super().form_valid(form)
